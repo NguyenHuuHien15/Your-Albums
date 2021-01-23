@@ -1,7 +1,8 @@
-package com.leboncoin.youralbums
+package com.leboncoin.youralbums.ui
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import com.leboncoin.youralbums.R
 
 class MainActivity : AppCompatActivity() {
 

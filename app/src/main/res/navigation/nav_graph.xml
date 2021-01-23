@@ -23,7 +23,7 @@
 
     <fragment
         android:id="@+id/mainFragment"
-        android:name="com.leboncoin.youralbums.ui.main.MainFragment"
+        android:name="com.leboncoin.youralbums.ui.AlbumsListFragment"
         android:label="MainFragment"
         tools:layout="@layout/main_fragment" />
 </navigation>

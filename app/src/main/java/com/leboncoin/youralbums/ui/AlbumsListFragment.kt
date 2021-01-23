@@ -1,4 +1,4 @@
-package com.leboncoin.youralbums.ui.main
+package com.leboncoin.youralbums.ui
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,9 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.leboncoin.youralbums.R
 
-class MainFragment : Fragment() {
-
-    private lateinit var viewModel: MainViewModel
+class AlbumsListFragment : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
