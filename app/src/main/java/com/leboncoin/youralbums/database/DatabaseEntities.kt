@@ -10,7 +10,7 @@ import com.leboncoin.youralbums.domain.Album
  */
 
 /**
- * DatabaseAlbum represents a video entity in the database.
+ * DatabaseAlbum represents a album entity in the database.
  */
 @Entity
 data class DatabaseAlbum constructor(
