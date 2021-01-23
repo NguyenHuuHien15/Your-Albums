@@ -4,11 +4,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/mainFragment">
+    app:startDestination="@id/albumsListFragment">
 
     <fragment
-        android:id="@+id/mainFragment"
+        android:id="@+id/albumsListFragment"
         android:name="com.leboncoin.youralbums.ui.AlbumsListFragment"
-        android:label="MainFragment"
-        tools:layout="@layout/main_fragment" />
+        android:label="AlbumsListFragment"
+        tools:layout="@layout/albums_list_fragment" />
 </navigation>
