@@ -1,4 +1,4 @@
-package com.example.android.devbyteviewer.network
+package com.leboncoin.youralbums.network
 
 import com.leboncoin.youralbums.database.DatabaseAlbum
 import com.leboncoin.youralbums.domain.Album
