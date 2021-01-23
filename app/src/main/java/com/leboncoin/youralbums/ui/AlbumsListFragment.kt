@@ -25,21 +25,16 @@ import com.leboncoin.youralbums.viewmodels.AlbumViewModel
 class AlbumsListFragment : Fragment() {
 
     /**
-     * One way to delay creation of the viewModel until an appropriate lifecycle method is to use
-     * lazy. This requires that viewModel not be referenced before onActivityCreated, which we
-     * do in this Fragment.
+     * RecyclerView Adapter for list of Album
      */
+    private var viewModelAdapter: AlbumsRecyAdapter? = null
+
     private val viewModel: AlbumViewModel by lazy {
         val activity = requireNotNull(this.activity) {
             "You can only access the viewModel after onActivityCreated()"
         }
         ViewModelProvider(this, AlbumViewModel.Factory(activity.application)).get(AlbumViewModel::class.java)
     }
-
-    /**
-     * RecyclerView Adapter for converting a list of Album to cards.
-     */
-    private var viewModelAdapter: AlbumsRecyAdapter? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -58,7 +53,7 @@ class AlbumsListFragment : Fragment() {
         binding.viewModel = viewModel
         viewModelAdapter = AlbumsRecyAdapter()
 
-        binding.root.findViewById<RecyclerView>(R.id.recycler_view).apply {
+        binding.recyclerView.apply {
             layoutManager = LinearLayoutManager(context)
             itemAnimator = DefaultItemAnimator()
             addItemDecoration(DividerItemDecoration(context, LinearLayoutManager.VERTICAL))
@@ -78,7 +73,7 @@ class AlbumsListFragment : Fragment() {
      */
     private fun onNetworkError() {
         if (!viewModel.isNetworkErrorShown.value!!) {
-            Toast.makeText(activity, "Network Error", Toast.LENGTH_LONG).show()
+            Toast.makeText(activity, "No Internet", Toast.LENGTH_LONG).show()
             viewModel.onNetworkErrorShown()
         }
     }
@@ -98,10 +93,6 @@ class AlbumsRecyAdapter() : RecyclerView.Adapter<AlbumViewHolder>() {
             notifyDataSetChanged()
         }
 
-    /**
-     * Called when RecyclerView needs a new {@link ViewHolder} of the given type to represent
-     * an item.
-     */
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AlbumViewHolder {
         val withDataBinding: AlbumItemBinding = DataBindingUtil.inflate(LayoutInflater.from(parent.context), AlbumViewHolder.LAYOUT, parent, false)
         return AlbumViewHolder(withDataBinding)
@@ -116,9 +107,6 @@ class AlbumsRecyAdapter() : RecyclerView.Adapter<AlbumViewHolder>() {
     }
 }
 
-/**
- * ViewHolder for Albums items. All work is done by data binding.
- */
 class AlbumViewHolder(val viewDataBinding: AlbumItemBinding) : RecyclerView.ViewHolder(viewDataBinding.root) {
     companion object {
         @LayoutRes

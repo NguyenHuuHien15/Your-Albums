@@ -29,9 +29,6 @@ class AlbumsRepository(private val database: AlbumsDatabase) {
     suspend fun refreshAlbums() {
         withContext(Dispatchers.IO) {
             val albums = AlbumNetwork.albums.getData()
-            albums.forEach {
-                ClassHelper.toString(it)?.let { it1 -> Log.d(LOG_TAG, it1) }
-            }
             val container = NetworkAlbumsContainer(albums)
             database.albumDao.insertAll(container.asDatabaseModel())
         }

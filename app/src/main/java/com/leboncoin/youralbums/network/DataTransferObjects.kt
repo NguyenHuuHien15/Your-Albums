@@ -1,7 +1,6 @@
 package com.leboncoin.youralbums.network
 
 import com.leboncoin.youralbums.database.DatabaseAlbum
-import com.leboncoin.youralbums.domain.Album
 import com.squareup.moshi.JsonClass
 
 /**
@@ -27,22 +26,6 @@ data class NetworkAlbum(
     val url: String,
     val thumbnailUrl: String
 )
-
-/**
- * Convert Network results to database objects
- */
-fun NetworkAlbumsContainer.asDomainModel(): List<Album> {
-    return albums.map {
-        Album(
-            id = it.id,
-            albumId = it.albumId,
-            title = it.title,
-            url = it.url,
-            thumbnailUrl = it.thumbnailUrl
-        )
-    }
-}
-
 
 /**
  * Convert Network results to database objects

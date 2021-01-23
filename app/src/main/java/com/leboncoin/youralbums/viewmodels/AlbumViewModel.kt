@@ -8,12 +8,10 @@ import kotlinx.coroutines.launch
 import java.io.IOException
 
 /**
- * @param application The application that this viewmodel is attached to, it's safe to hold a
+ * @param application The application that this viewmodel is attached to
  */
 
 class AlbumViewModel(application: Application) : AndroidViewModel(application) {
-
-
     /**
      * The data source this ViewModel will fetch results from.
      */
@@ -28,7 +26,7 @@ class AlbumViewModel(application: Application) : AndroidViewModel(application) {
      * Event triggered for network error. This is private to avoid exposing a
      * way to set this value to observers.
      */
-    private var _eventNetworkError = MutableLiveData<Boolean>(false)
+    private var _eventNetworkError = MutableLiveData(false)
 
     /**
      * Event triggered for network error. Views should use this to get access
@@ -41,7 +39,7 @@ class AlbumViewModel(application: Application) : AndroidViewModel(application) {
      * Flag to display the error message. This is private to avoid exposing a
      * way to set this value to observers.
      */
-    private var _isNetworkErrorShown = MutableLiveData<Boolean>(false)
+    private var _isNetworkErrorShown = MutableLiveData(false)
 
     /**
      * Flag to display the error message. Views should use this to get access

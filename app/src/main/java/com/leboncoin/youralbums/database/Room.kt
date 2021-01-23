@@ -24,11 +24,7 @@ abstract class AlbumsDatabase : RoomDatabase() {
 fun getDatabase(context: Context): AlbumsDatabase {
     synchronized(AlbumsDatabase::class.java) {
         if (!::INSTANCE.isInitialized) {
-            INSTANCE = Room.databaseBuilder(
-                context.applicationContext,
-                AlbumsDatabase::class.java,
-                "albums"
-            ).build()
+            INSTANCE = Room.databaseBuilder(context.applicationContext, AlbumsDatabase::class.java, "albums").build()
         }
     }
     return INSTANCE

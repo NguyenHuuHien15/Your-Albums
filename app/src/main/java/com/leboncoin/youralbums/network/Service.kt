@@ -4,12 +4,11 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
 
+private const val BASE_URL = "https://static.leboncoin.fr/img/shared/"
+
 /**
  * A retrofit service to fetch albums.
  */
-
-private const val BASE_URL = "https://static.leboncoin.fr/img/shared/"
-
 interface AlbumService {
     @GET("technical-test.json")
     suspend fun getData(): List<NetworkAlbum>
