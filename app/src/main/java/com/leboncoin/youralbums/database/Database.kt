@@ -1,20 +1,11 @@
 package com.leboncoin.youralbums.database
 
 import android.content.Context
-import androidx.lifecycle.LiveData
-import androidx.room.*
+import androidx.room.Database
+import androidx.room.Room
+import androidx.room.RoomDatabase
 
 private lateinit var INSTANCE: AlbumsDatabase
-
-@Dao
-interface AlbumDao {
-
-    @Query("select * from databasealbum")
-    fun getAlbums(): LiveData<List<DatabaseAlbum>>
-
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertAll(albums: List<DatabaseAlbum>)
-}
 
 @Database(entities = [DatabaseAlbum::class], version = 1)
 abstract class AlbumsDatabase : RoomDatabase() {
