@@ -3,6 +3,9 @@ package com.leboncoin
 import android.app.Application
 import android.os.Build
 import androidx.work.*
+import com.leboncoin.youralbums.database.getDatabase
+import com.leboncoin.youralbums.repository.AlbumsRepository
+import com.leboncoin.youralbums.repository.IRepository
 import com.leboncoin.youralbums.work.RefreshDataWorker
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -17,6 +20,8 @@ class MyApplication : Application() {
 
     private val applicationScope = CoroutineScope(Dispatchers.Default)
 
+    lateinit var repository: IRepository
+
     /**
      * onCreate is called before the first screen is shown to the user.
      *
@@ -25,6 +30,7 @@ class MyApplication : Application() {
      */
     override fun onCreate() {
         super.onCreate()
+        repository = AlbumsRepository(getDatabase(this))
         delayedInit()
     }
 

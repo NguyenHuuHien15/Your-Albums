@@ -1,9 +1,7 @@
 package com.leboncoin.youralbums.viewmodels
 
-import android.app.Application
 import androidx.lifecycle.*
-import com.leboncoin.youralbums.database.getDatabase
-import com.leboncoin.youralbums.repository.AlbumsRepository
+import com.leboncoin.youralbums.repository.IRepository
 import kotlinx.coroutines.launch
 import java.io.IOException
 
@@ -11,12 +9,7 @@ import java.io.IOException
  * @param application The application that this viewmodel is attached to
  */
 
-class AlbumViewModel(application: Application) : AndroidViewModel(application) {
-    /**
-     * The data source this ViewModel will fetch results from.
-     */
-    private val albumsRepository = AlbumsRepository(getDatabase(application))
-
+class AlbumViewModel(private val albumsRepository: IRepository) : ViewModel() {
     /**
      * Albums displayed on the screen.
      */
@@ -81,17 +74,11 @@ class AlbumViewModel(application: Application) : AndroidViewModel(application) {
     fun onNetworkErrorShown() {
         _isNetworkErrorShown.value = true
     }
+}
 
-    /**
-     * Factory for constructing AlbumViewModel with parameter
-     */
-    class Factory(val app: Application) : ViewModelProvider.Factory {
-        override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-            if (modelClass.isAssignableFrom(AlbumViewModel::class.java)) {
-                @Suppress("UNCHECKED_CAST")
-                return AlbumViewModel(app) as T
-            }
-            throw IllegalArgumentException("Unable to construct viewmodel")
-        }
-    }
+@Suppress("UNCHECKED_CAST")
+class ViewModelFactory(private val repository: IRepository)
+    : ViewModelProvider.NewInstanceFactory() {
+    override fun <T : ViewModel> create(modelClass: Class<T>) =
+        (AlbumViewModel(repository) as T)
 }
