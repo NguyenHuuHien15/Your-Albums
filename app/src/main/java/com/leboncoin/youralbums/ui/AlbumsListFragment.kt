@@ -27,7 +27,7 @@ class AlbumsListFragment : Fragment() {
     /**
      * RecyclerView Adapter for list of Album
      */
-    private var viewModelAdapter: AlbumsRecyAdapter? = null
+    private var recyAdapter: AlbumsRecyAdapter? = null
 
     private val viewModel: AlbumViewModel by lazy {
         val activity = requireNotNull(this.activity) {
@@ -40,7 +40,7 @@ class AlbumsListFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         viewModel.albums.observe(viewLifecycleOwner, { albums ->
             albums?.apply {
-                viewModelAdapter?.albums = albums
+                recyAdapter?.albums = albums
             }
         })
     }
@@ -51,13 +51,13 @@ class AlbumsListFragment : Fragment() {
         // Set the lifecycleOwner so DataBinding can observe LiveData
         binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModel = viewModel
-        viewModelAdapter = AlbumsRecyAdapter()
+        recyAdapter = AlbumsRecyAdapter()
 
         binding.recyclerView.apply {
             layoutManager = LinearLayoutManager(context)
             itemAnimator = DefaultItemAnimator()
             addItemDecoration(DividerItemDecoration(context, LinearLayoutManager.VERTICAL))
-            adapter = viewModelAdapter
+            adapter = recyAdapter
         }
 
         // Observer for the network error.
