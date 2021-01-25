@@ -13,21 +13,12 @@ import kotlinx.coroutines.launch
 import timber.log.Timber
 import java.util.concurrent.TimeUnit
 
-/**
- * Override application to setup background work via WorkManager
- */
 class MyApplication : Application() {
 
     private val applicationScope = CoroutineScope(Dispatchers.Default)
 
     lateinit var repository: IRepository
 
-    /**
-     * onCreate is called before the first screen is shown to the user.
-     *
-     * Use it to setup any background tasks, running expensive setup operations in a background
-     * thread to avoid delaying app start.
-     */
     override fun onCreate() {
         super.onCreate()
         repository = AlbumsRepository(getDatabase(this))

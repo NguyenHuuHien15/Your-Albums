@@ -4,21 +4,21 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import androidx.test.filters.SmallTest
+import androidx.test.filters.MediumTest
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runBlockingTest
+import org.hamcrest.CoreMatchers
+import org.hamcrest.CoreMatchers.`is`
+import org.hamcrest.MatcherAssert
 import org.junit.After
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.hamcrest.CoreMatchers.`is`
-import org.hamcrest.CoreMatchers.notNullValue
-import org.hamcrest.MatcherAssert.assertThat
 
 @ExperimentalCoroutinesApi
 @RunWith(AndroidJUnit4::class)
-@SmallTest
+@MediumTest
 class AlbumDaoTest {
     private lateinit var database: AlbumsDatabase
 
@@ -51,7 +51,7 @@ class AlbumDaoTest {
         val albumsFromDb = database.albumDao.getAlbums().value
 
         // THEN - The loaded data contains the expected values
-        assertThat(albumsFromDb, notNullValue())
-        assertThat(albumsFromDb!!.isNotEmpty(), `is`(true))
+        MatcherAssert.assertThat(albumsFromDb, CoreMatchers.notNullValue())
+        MatcherAssert.assertThat(albumsFromDb!!.isNotEmpty(), `is`(true))
     }
 }

@@ -10,6 +10,7 @@ import com.leboncoin.youralbums.network.NetworkAlbumsContainer
 import com.leboncoin.youralbums.network.asDatabaseModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import java.io.IOException
 
 /**
  * Repository for fetching albums from the network and storing them on disk
@@ -23,10 +24,14 @@ class AlbumsRepository(private val database: AlbumsDatabase) : IRepository {
      * Refresh the albums stored in the offline cache.
      */
     override suspend fun refreshAlbums() {
-        withContext(Dispatchers.IO) {
-            val albums = AlbumNetwork.albums.getData()
-            val container = NetworkAlbumsContainer(albums)
+        try {
+            val container = withContext(Dispatchers.IO) {
+                val albums = AlbumNetwork.albums.getData()
+                NetworkAlbumsContainer(albums)
+            }
             database.albumDao.insertAll(container.asDatabaseModel())
+        } catch (e: IOException) {
+            // Error, so not update, do nothing
         }
     }
 }

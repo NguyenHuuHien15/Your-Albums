@@ -7,7 +7,7 @@ import androidx.room.RoomDatabase
 
 private lateinit var INSTANCE: AlbumsDatabase
 
-@Database(entities = [DatabaseAlbum::class], version = 1)
+@Database(entities = [DatabaseAlbum::class], version = 1, exportSchema = false)
 abstract class AlbumsDatabase : RoomDatabase() {
     abstract val albumDao: AlbumDao
 }
