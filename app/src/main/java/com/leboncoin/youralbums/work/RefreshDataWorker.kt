@@ -3,8 +3,7 @@ package com.leboncoin.youralbums.work
 import android.content.Context
 import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
-import com.leboncoin.youralbums.database.getDatabase
-import com.leboncoin.youralbums.repository.AlbumsRepository
+import com.leboncoin.youralbums.ServiceLocator
 import retrofit2.HttpException
 import timber.log.Timber
 
@@ -14,11 +13,8 @@ class RefreshDataWorker(appContext: Context, params: WorkerParameters) : Corouti
     }
 
     override suspend fun doWork(): Result {
-        val database = getDatabase(applicationContext)
-        val repository = AlbumsRepository(database)
-
         try {
-            repository.refreshAlbums()
+            ServiceLocator.provideRepository(applicationContext).refreshAlbums()
             Timber.d("WorkManager: Work request for sync is run")
         } catch (e: HttpException) {
             return Result.retry()

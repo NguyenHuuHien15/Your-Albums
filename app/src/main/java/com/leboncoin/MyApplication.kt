@@ -3,8 +3,7 @@ package com.leboncoin
 import android.app.Application
 import android.os.Build
 import androidx.work.*
-import com.leboncoin.youralbums.database.getDatabase
-import com.leboncoin.youralbums.repository.AlbumsRepository
+import com.leboncoin.youralbums.ServiceLocator
 import com.leboncoin.youralbums.repository.IRepository
 import com.leboncoin.youralbums.work.RefreshDataWorker
 import kotlinx.coroutines.CoroutineScope
@@ -17,11 +16,11 @@ class MyApplication : Application() {
 
     private val applicationScope = CoroutineScope(Dispatchers.Default)
 
-    lateinit var repository: IRepository
+    val repository: IRepository
+        get() = ServiceLocator.provideRepository(this)
 
     override fun onCreate() {
         super.onCreate()
-        repository = AlbumsRepository(getDatabase(this))
         delayedInit()
     }
 
